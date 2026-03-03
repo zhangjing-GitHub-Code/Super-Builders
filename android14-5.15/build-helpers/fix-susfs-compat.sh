@@ -30,6 +30,9 @@ if [ -f "$TMU" ]; then
         echo "fix-susfs-compat: injecting show_pad: label in task_mmu.c (sublevel $SUBLEVEL)"
         sed -i '/show_smap_vma_flags(m, vma);/,/return 0;/{/return 0;/i\show_pad:
         }' "$TMU"
+    elif grep -q '^show_pad:' "$TMU" && ! grep -q 'goto show_pad;' "$TMU"; then
+        echo "fix-susfs-compat: removing orphan show_pad: label in task_mmu.c (sublevel $SUBLEVEL)"
+        sed -i '/^show_pad:/d' "$TMU"
     else
         echo "fix-susfs-compat: task_mmu.c show_pad: OK (no fix needed)"
     fi
