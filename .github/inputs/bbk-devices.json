@@ -277,6 +277,19 @@
     "hmbird": false,
     "extra_artifacts": []
   },
+  "oneplus_ace5_a": {
+    "brand": "oneplus",
+    "name": "OnePlus Ace 5",
+    "soc": "sm8650",
+    "codename": "pineapple",
+    "android_version": "android15",
+    "kernel_version": "6.1",
+    "build_method": "perf",
+    "manifest_repo": "OnePlusOSS/kernel_manifest",
+    "manifest_branch": "oneplus/sm8650",
+    "hmbird": false,
+    "extra_artifacts": []
+  },
   "oneplus_ace5_b": {
     "brand": "oneplus",
     "name": "OnePlus Ace 5",
