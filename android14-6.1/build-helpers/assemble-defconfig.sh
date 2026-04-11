@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+set -x
 
 FRAGMENT_SRC="${1:?}"
 FRAGMENT_DST="${2:?}"

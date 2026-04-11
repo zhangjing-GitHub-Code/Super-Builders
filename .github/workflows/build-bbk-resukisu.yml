@@ -411,6 +411,7 @@ jobs:
         ADD_ZRAM: ${{ inputs.add_zram }}
         LTO_MODE: ${{ inputs.lto_mode }}
       run: |
+        set -x
         [[ "${LTO_OVERRIDE:-}" == "none" ]] && export LTO_MODE=none
         [[ "${RUST_BUILD_REQUIRED:-}" == "true" ]] && export ADD_RUST_BUILD=true
 
