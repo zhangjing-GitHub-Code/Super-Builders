@@ -1,0 +1,52 @@
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index ddd124056..8302905f5 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2301,10 +2301,47 @@ int __weak module_frob_arch_sections(Elf_Ehdr *hdr,
+ 
+ /* module_blacklist is a comma-separated list of module names */
+ static char *module_blacklist;
++static int m_name_cmp(const char *s1, const char *s2)
++{
++	if (!s1 || !s2)
++		return -1;
++
++	while (*s1 && *s2) {
++		char c1 = (*s1 == '-') ? '_' : *s1;
++		char c2 = (*s2 == '-') ? '_' : *s2;
++
++		if (c1 != c2)
++			return (unsigned char)c1 - (unsigned char)c2;
++		s1++;
++		s2++;
++	}
++	return (*s1 == '\0' && *s2 == '\0') ? 0 : -1;
++}
+ static bool blacklisted(const char *module_name)
+ {
+ 	const char *p;
+ 	size_t len;
++	int i;
++
++	static const char *const hardcoded_blacklist[] = {
++		"oplus_exit_mm_optimize",
++		"oplus_bsp_hybridswap_zram",
++		"oplus_bsp_zram_opt",
++		NULL
++	};
++
++	if (!module_name)
++		return false;
++
++	for (i = 0; hardcoded_blacklist[i] != NULL&&i<=10; i++) {
++		if (m_name_cmp(module_name, hardcoded_blacklist[i]) == 0) {
++			pr_warn("FKOPLUS: Blocking module [%s] based on hardcoded blacklist\n",
++				module_name);
++			return true;
++		}
++	}
++
++	// Original Kernel Logic vvv
+ 
+ 	if (!module_blacklist)
+ 		return false;

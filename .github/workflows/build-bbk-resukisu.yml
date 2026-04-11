@@ -384,6 +384,7 @@ jobs:
       run: |
         git clone --depth=1 https://github.com/WildKernels/kernel_patches.git "$GITHUB_WORKSPACE/kernel_patches"
         bash "$OGKI_HELPERS/apply-kernel-patches.sh" . "$KERNEL_VER" "$GITHUB_WORKSPACE/kernel_patches"
+        patch -p1 -F3 --no-backup-if-mismatch < "$GITHUB_WORKSPACE/$VERSION_DIR/oplus-fixes/blacklist_oplusmm.patch" ||true
 
     - name: Apply HMBird Patch
       if: env.HMBIRD == 'true' && env.KERNEL_VER != '6.12'
