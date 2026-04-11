@@ -205,7 +205,7 @@ jobs:
           echo "EXTRA_ARTIFACTS=$EXTRA_ARTIFACTS"
           echo "VERSION_DIR=$VERSION_DIR"
           echo "GKI_TAG=$GKI_TAG"
-          echo "OGKI_HELPERS=$GITHUB_WORKSPACE/android14-6.1/build-helpers"
+          echo "OGKI_HELPERS=$GITHUB_WORKSPACE/android12-5.10/build-helpers"
           if [ "$KERNEL_VER" = "6.12" ]; then
             echo "RUST_BUILD_REQUIRED=true"
             echo "LTO_OVERRIDE=none"
