@@ -114,8 +114,8 @@ jobs:
         remove_haskell: true
         remove_tool_cache: true
         remove_swap: true
-        remove_packages: "azure-cli google-cloud-cli microsoft-edge-stable google-chrome-stable firefox postgresql* temurin-* *llvm* mysql* dotnet-sdk-*"
-        remove_packages_one_command: true
+        # remove_packages: "azure-cli google-cloud-cli microsoft-edge-stable google-chrome-stable firefox postgresql* temurin-* *llvm* mysql* dotnet-sdk-*"
+        # remove_packages_one_command: true
         remove_folders: "/usr/share/swift /usr/share/miniconda /usr/share/az* /usr/local/lib/node_modules /usr/local/share/chromium /usr/local/share/powershell /usr/local/julia /usr/local/aws-cli /usr/local/aws-sam-cli /usr/share/gradle"
         rm_cmd: "rmz"
         rmz_version: "3.1.1"
@@ -430,7 +430,9 @@ jobs:
         fi
 
         # Explicitly disable KSU_SUSFS when not requested (some KSU variants default it on)
-        [[ "$ADD_SUSFS" != "true" ]] && echo "# CONFIG_KSU_SUSFS is not set" >> "$DEFCONFIG"
+        if [[ "$ADD_SUSFS" != "true" ]];then
+          echo "# CONFIG_KSU_SUSFS is not set" >> "$DEFCONFIG" ||true
+        fi
 
     - name: Build Kernel
       working-directory: ${{ env.SYNC_DIR }}
